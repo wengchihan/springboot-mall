@@ -1,5 +1,6 @@
 package com.andre.springbootmall.service;
 
+import com.andre.springbootmall.dto.ProductRequest;
 import com.andre.springbootmall.model.Product;
 
 /**
@@ -14,4 +15,6 @@ import com.andre.springbootmall.model.Product;
 public interface ProductService {
 
     Product getProductById(Integer productId);
+
+    Integer createProduct(ProductRequest productRequest);
 }
