@@ -3,6 +3,8 @@ package com.andre.springbootmall.service;
 import com.andre.springbootmall.dto.ProductRequest;
 import com.andre.springbootmall.model.Product;
 
+import java.util.List;
+
 /**
  * ClassName: ProductService
  * Package: com.andre.springbootmall.service
@@ -13,6 +15,8 @@ import com.andre.springbootmall.model.Product;
  * @Version: v1.0
  */
 public interface ProductService {
+
+    List<Product> getProducts();
 
     Product getProductById(Integer productId);
 
