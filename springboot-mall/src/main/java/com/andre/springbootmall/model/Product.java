@@ -1,5 +1,7 @@
 package com.andre.springbootmall.model;
 
+import com.andre.springbootmall.constant.ProductCategory;
+
 import java.util.Date;
 
 /**
@@ -15,7 +17,7 @@ public class Product {
 
     private Integer productId;
     private String productName;
-    private String category;
+    private ProductCategory category; // 使用 enum的好處: 可以提升程式的可讀性
     private String imageUrl;
     private Integer price;
     private Integer stock;
@@ -39,11 +41,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 

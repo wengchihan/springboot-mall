@@ -1,5 +1,6 @@
 package com.andre.springbootmall.rowmapper;
 
+import com.andre.springbootmall.constant.ProductCategory;
 import com.andre.springbootmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -24,7 +25,11 @@ public class ProductRowMapper implements RowMapper<Product> {
         // 注意要與資料庫的資料類型一致
         product.setProductId(rs.getInt("product_id"));
         product.setProductName(rs.getString("product_name"));
-        product.setCategory(rs.getString("category"));
+
+        String categoryStr = rs.getString("category");
+        ProductCategory productCategory = ProductCategory.valueOf(categoryStr);
+        product.setCategory(productCategory);
+
         product.setImageUrl(rs.getString("image_url"));
         product.setPrice(rs.getInt("price"));
         product.setStock(rs.getInt("stock"));
