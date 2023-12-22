@@ -19,4 +19,6 @@ public interface ProductDao {
 
     Integer createProduct(ProductRequest productRequest);
 
+    void updateProduct(Integer productId, ProductRequest productRequest);
+
 }
