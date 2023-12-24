@@ -28,15 +28,30 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    /**
+     *
+     * @param category 前端傳來的參數 - 目錄
+     * @param search 前端傳來的參數 - search欄位(用戶輸入的查詢內容)
+     * @param orderBy 根據什麼樣的欄位進行排序
+     * @param sort 升序 or 降序 排序
+     * @RequestParam(required = false) 前端有沒有傳遞這個參數 api都可以執行
+     * @return
+     */
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(
+            // 查詢條件 Filtering
             @RequestParam(required = false) ProductCategory category,
-            @RequestParam(required = false) String search
+            @RequestParam(required = false) String search,
+            // 排序 Sorting - 控制商品數據的排序
+            @RequestParam(defaultValue = "created_date") String orderBy, // 預設 商品的創建時間
+            @RequestParam(defaultValue = "desc") String sort // 預設 降序 - 大 到 小
             ) {
 
         ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
+        productQueryParams.setOrderBy(orderBy);
+        productQueryParams.setSort(sort);
 
         List<Product> productList = productService.getProducts(productQueryParams);
 
