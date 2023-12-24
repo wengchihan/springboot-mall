@@ -6,9 +6,12 @@ import com.andre.springbootmall.dto.ProductRequest;
 import com.andre.springbootmall.model.Product;
 import com.andre.springbootmall.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
  * @Version: v1.0
  */
 @RestController
+@Validated
 public class ProductController {
 
     @Autowired
@@ -44,7 +48,10 @@ public class ProductController {
             @RequestParam(required = false) String search,
             // 排序 Sorting - 控制商品數據的排序
             @RequestParam(defaultValue = "created_date") String orderBy, // 預設 商品的創建時間
-            @RequestParam(defaultValue = "desc") String sort // 預設 降序 - 大 到 小
+            @RequestParam(defaultValue = "desc") String sort, // 預設 降序 - 大 到 小
+            // 分頁 Pagination
+            @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset
             ) {
 
         ProductQueryParams productQueryParams = new ProductQueryParams();
@@ -52,6 +59,8 @@ public class ProductController {
         productQueryParams.setSearch(search);
         productQueryParams.setOrderBy(orderBy);
         productQueryParams.setSort(sort);
+        productQueryParams.setLimit(limit);
+        productQueryParams.setOffset(offset);
 
         List<Product> productList = productService.getProducts(productQueryParams);
 
