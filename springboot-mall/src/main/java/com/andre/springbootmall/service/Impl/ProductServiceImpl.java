@@ -2,6 +2,7 @@ package com.andre.springbootmall.service.Impl;
 
 import com.andre.springbootmall.constant.ProductCategory;
 import com.andre.springbootmall.dao.ProductDao;
+import com.andre.springbootmall.dto.ProductQueryParams;
 import com.andre.springbootmall.dto.ProductRequest;
 import com.andre.springbootmall.model.Product;
 import com.andre.springbootmall.service.ProductService;
@@ -26,8 +27,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public List<Product> getProducts(ProductCategory category, String search) {
-        return productDao.getProducts(category, search);
+    public List<Product> getProducts(ProductQueryParams productQueryParams) {
+        return productDao.getProducts(productQueryParams);
     }
 
     @Override
