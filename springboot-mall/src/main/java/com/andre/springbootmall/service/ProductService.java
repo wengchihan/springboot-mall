@@ -18,6 +18,8 @@ import java.util.List;
  */
 public interface ProductService {
 
+    Integer countProduct(ProductQueryParams productQueryParams);
+
     // 假如有N個查詢條件,就要一直添加,不利於程式的維護; 改善的方法:創建一個class,在裡面去存放這些參數的值,最後再傳遞過去
     List<Product> getProducts(ProductQueryParams productQueryParams);
 
