@@ -2,6 +2,7 @@ package com.andre.springbootmall.service.Impl;
 
 
 import com.andre.springbootmall.dao.UserDao;
+import com.andre.springbootmall.dto.UserLoginRequest;
 import com.andre.springbootmall.dto.UserRegisterRequest;
 import com.andre.springbootmall.model.User;
 import com.andre.springbootmall.service.UserService;
@@ -46,5 +47,25 @@ public class UserServiceImpl implements UserService {
         }
         // 創建帳號
         return userDao.createUser(userRegisterRequest);
+    }
+
+    @Override
+    public User login(UserLoginRequest userLoginRequest) {
+        // 需要檢查 使用者所輸入的 帳號密碼 是否和資料庫的一致
+        User user = userDao.getUserByEmail(userLoginRequest.getEmail());
+
+        if (user == null) {
+            // email 不存在
+            log.warn("該 email {} 尚未註冊", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        if (user.getPassword().equals(userLoginRequest.getPassword())) {
+            return user;
+        } else {
+            log.warn("email {} 的密碼不正確", userLoginRequest.getEmail());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
