@@ -1,6 +1,7 @@
 package com.andre.springbootmall.service;
 
 import com.andre.springbootmall.dto.CreateOrderRequest;
+import com.andre.springbootmall.model.Order;
 
 /**
  * ClassName: OrderService
@@ -12,6 +13,8 @@ import com.andre.springbootmall.dto.CreateOrderRequest;
  * @Version: v1.0
  */
 public interface OrderService {
+
+    Order getOrderById(Integer orderId);
 
     Integer createOrder(Integer userId, CreateOrderRequest createOrderRequest);
 }

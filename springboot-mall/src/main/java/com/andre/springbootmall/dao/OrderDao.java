@@ -1,5 +1,6 @@
 package com.andre.springbootmall.dao;
 
+import com.andre.springbootmall.model.Order;
 import com.andre.springbootmall.model.OrderItem;
 
 import java.util.List;
@@ -14,6 +15,11 @@ import java.util.List;
  * @Version: v1.0
  */
 public interface OrderDao {
+
+    List<OrderItem> getOrderItemsByOrderId(Integer orderId);
+
+    // 透過 orderId, 在 order table 中 查出這筆訂單總資訊
+    Order getOrderById(Integer orderId);
 
     Integer createOrder(Integer userId, Integer totalAmount);
 

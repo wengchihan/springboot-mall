@@ -4,6 +4,7 @@ import com.andre.springbootmall.dao.OrderDao;
 import com.andre.springbootmall.dao.ProductDao;
 import com.andre.springbootmall.dto.BuyItem;
 import com.andre.springbootmall.dto.CreateOrderRequest;
+import com.andre.springbootmall.model.Order;
 import com.andre.springbootmall.model.OrderItem;
 import com.andre.springbootmall.model.Product;
 import com.andre.springbootmall.service.OrderService;
@@ -31,6 +32,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductDao productDao;
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        // 透過 orderId, 在 order table 中 查出這筆訂單總資訊
+        Order order = orderDao.getOrderById(orderId);
+        // 透過 orderId, 在 orderItems table 中
+        List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
+
+        order.setOrderItemList(orderItemList);
+
+        return order; // 除了包含訂單總資訊外,也會包含這筆訂單分別購買哪些商品的資訊
+
+    }
 
     @Transactional
     @Override
